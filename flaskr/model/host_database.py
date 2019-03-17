@@ -22,4 +22,5 @@ class DB_Model:
 if __name__ == '__main__':
     test_DB = DB_Model()
     test_DB.test_update_hosts()
-    print(test_DB.get_hosts())
+    for host in test_DB.get_hosts():
+        print host.toString()
