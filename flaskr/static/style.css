@@ -1,6 +1,17 @@
 html, body {
   height: 100%;
 }
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 #ribbon {
   background-color:gray;
@@ -11,10 +22,11 @@ html, body {
 }
 
 #workbench {
-  background-color:light gray;
+  background-color:gray;
   border:3px dashed black;
   
   width: 100%;
   height: 88vh;
   
 }
+
