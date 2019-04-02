@@ -1,4 +1,4 @@
-from host_model import host
+from Interactive_MSFDB.flaskr.model.host_model import host
 
 class DB_Model:
 

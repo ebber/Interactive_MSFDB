@@ -2,6 +2,8 @@ import os
 
 from flask import Flask, render_template
 
+from Interactive_MSFDB.flaskr.model.host_database import DB_Model
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -10,6 +12,11 @@ def create_app(test_config=None):
 	#set up vars from config here
 	SECRET_KEY = "Test" #Change to random seed for production, used by flask for signing cookies etc	
     )
+
+    # Link the host database to the web app
+    host_database = DB_Model()
+    host_database.test_update_hosts(20)
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -28,7 +35,7 @@ def create_app(test_config=None):
 
     @app.route('/UI')
     def render_app():
-        return render_template('view_screen.html')
+        return render_template('view_screen.html', hosts=host_database.get_hosts())
 
     return app
 
