@@ -7,7 +7,7 @@ class host:
             self.init_test()
             
 
-    #ports -> [port] -> [(port num, service, state)]
+    #ports -> [port] -> [(port num, service,info, state)]
     def initialize(self, ip, OS, ports, purpose):
         self.ip = ip
         self.OS = OS
@@ -15,10 +15,10 @@ class host:
         self.purpose = purpose
 
     def init_test(self):
-        self.initialize("127.0.0.1", "Linux", [(22, "sshd v2.3.1", "OPEN")], "auth server")
+        self.initialize("127.0.0.1", "Linux", [(22, "ssh", "sshd v2.3.1", "OPEN")], "auth server")
 
     def toString(self):
-        return "IP:" + self.ip + " OS:" + self.OS
+        return "IP:" + str(self.ip) + " OS:" + str(self.OS) + " ports:" + str(self.ports)
 
 if __name__ == '__main__':
     t_host = host() 
