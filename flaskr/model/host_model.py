@@ -3,14 +3,14 @@ import random
 
 class host:
 
-    def __init__(self,ip = False, OS = False, ports = False ,services = False, purpose = False):
+    def __init__(self,ip = False, OS = False, ports = False ,services = False, purpose = False, comments=""):
         if ip:
-            self.initialize(ip, OS, ports, services, purpose)
+            self.initialize(ip, OS, ports, purpose)
         else:
             self.init_test()
             
 
-    #ports -> [port] -> [(port num, service, state)]
+    #ports -> [port] -> [(port num, service,info, state)]
     def initialize(self, ip, OS, ports, purpose):
         self.ip = ip
         self.OS = OS
@@ -18,6 +18,7 @@ class host:
         self.purpose = purpose
 
     def init_test(self):
+
         fake_ip = str(random.randint(0,256)) + "." + str(random.randint(0,256)) +"." + str(random.randint(0,256)) +"."+ str(random.randint(0,256))
         fake_OS = mock.OS[random.randint(0,len(mock.OS)-1)]
         fake_ports = []
@@ -30,6 +31,7 @@ class host:
 
     def toString(self):
         return "IP:" + self.ip + " OS:" + self.OS + "Ports open:" +str(len(self.ports)) + " Purpose:" + self.purpose
+
 
 if __name__ == '__main__':
     t_host = host() 
