@@ -11,14 +11,24 @@
     <img class="osPicture" src="/static/images/Microsoft-Logo.png" >
     <br/>
     {% for host in hosts %}
-      <img src="/static/images/Computer-Icon" style="width:40px;height:40px;">
+      <div class="hostContainer">
+        <img src="/static/images/Computer-Icon">
+      </div>
     {% endfor %}
   </div>
   <div class="column">
     <img class="osPicture" src="/static/images/Linux-Logo.png" >
+    <br/>
   </div>
   <div class="column">
     <img class="osPicture" src="/static/images/Cisco-Logo.png" >
+    <br/>
+    {% for host in hosts %}
+      <div class="hostContainer">
+        <img src="/static/images/Computer-Icon">
+      </div>
+    {% endfor %}
+
   </div>
 </div>
 
