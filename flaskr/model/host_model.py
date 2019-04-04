@@ -1,8 +1,8 @@
 class host:
 
-    def __init__(self,ip = False, OS = False, ports = False ,services = False, purpose = False):
+    def __init__(self,ip = False, OS = False, ports = False ,services = False, purpose = False, comments=""):
         if ip:
-            self.initialize(ip, OS, ports, services, purpose)
+            self.initialize(ip, OS, ports, purpose)
         else:
             self.init_test()
             

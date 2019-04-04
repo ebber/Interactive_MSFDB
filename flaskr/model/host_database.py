@@ -10,7 +10,6 @@ class DB_Model:
         conn = connect(conn_string)
         self.cursor = conn.cursor()
         self.cursor.execute("SELECT table_name FROM information_schema.tables")
-        print(self.cursor.fetchall())
 
 
         self.hosts = []
@@ -20,7 +19,10 @@ class DB_Model:
 
     #update from the DB
     def update_hosts(self):
-        pass
+        q_string = "SELECT address, os_family, service_count, purpose, comments FROM public.hosts"
+        self.cursor.execute(q_string)
+        for row in self.cursor:
+           self.hosts.append(host(row[0], row[1], row[2], row[3], row[4])) 
 
     def test_update_hosts(self, num=1):
         for i in range(0,num):
@@ -30,6 +32,6 @@ class DB_Model:
 
 if __name__ == '__main__':
     test_DB = DB_Model()
-    test_DB.test_update_hosts()
+    test_DB.update_hosts()
     for host in test_DB.get_hosts():
         print host.toString()
