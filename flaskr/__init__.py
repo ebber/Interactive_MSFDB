@@ -35,7 +35,9 @@ def create_app(test_config=None):
 
     @app.route('/UI')
     def render_app():
-        return render_template('view_screen.html', hosts=host_database.get_hosts())
+        host_list = host_database.get_hosts()
+        print(host_list)
+        return render_template('view_screen.html', hosts=host_list)
 
     return app
 

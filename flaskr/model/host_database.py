@@ -24,12 +24,16 @@ class DB_Model:
 
     #update from the DB
     def update_hosts(self):
+        if not self.connected:
+            print("DB not connected, use test_update_hosts")
+            return False
         q_string = "SELECT id, address, os_family, service_count, purpose, comments FROM public.hosts"
         self.cursor.execute(q_string)
         rows = self.cursor.fetchall()
         for row in rows:
             host_ports = self.get_host_port_info(row[0]) #id
             self.hosts.append(host(ip=row[1], OS=row[2], ports=host_ports, purpose=row[4], comments=row[5])) 
+        return True
 
     def test_update_hosts(self, num=1):
         for i in range(0,num):
