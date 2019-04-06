@@ -63,3 +63,13 @@ html, body {
   padding: 0 15px;
   margin-top: 20px;
 }
+
+.hostPicture {
+  width:15px;
+  height:15px;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 5px;
+  margin-top: 5px;
+}
