@@ -18,3 +18,11 @@ html, body {
   height: 88vh;
   
 }
+
+#brand-name {
+  font-size: 40px;
+}
+
+.top-navbar {
+  font-size: 25px; 
+}
