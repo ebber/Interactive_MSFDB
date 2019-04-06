@@ -1,4 +1,5 @@
-from host_model import host
+from Interactive_MSFDB.flaskr.model.host_model import host
+
 import db_config
 from psycopg2 import connect
 
@@ -44,4 +45,4 @@ if __name__ == '__main__':
     test_DB = DB_Model()
     test_DB.test_update_hosts(10)
     for host in test_DB.get_hosts():
-        print host.toString()
+        print(host.toString())
