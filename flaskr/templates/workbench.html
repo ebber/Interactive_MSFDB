@@ -12,33 +12,27 @@
     <br/>
 
     {% for host in hosts %}
-    {% if host.OS == "Windows" %}
-      <div class="hostContainer">
-        <img class="hostPicture" src="/static/images/firewall.svg">
-      </div>
-    {% endif %}
+      {% if host.OS == "Windows" %}
+	{% include 'host_template.html' %} 
+      {% endif %}
     {% endfor %}
   </div>
   <div class="column">
     <img class="osPicture" src="/static/images/Linux-Logo.png" >
     <br/>
     {% for host in hosts %}
-    {% if host.OS == "Linux" %}
-      <div class="hostContainer">
-        <img class="hostPicture" src="/static/images/firewall.svg">
-      </div>
-    {% endif %}
+      {% if host.OS == "Linux" %}
+	{% include 'host_template.html' %} 
+      {% endif %}
     {% endfor %}
   </div>
   <div class="column">
     <img class="osPicture" src="/static/images/Cisco-Logo.png" >
     <br/>
     {% for host in hosts %}
-    {% if host.OS == "Cisco" %}
-      <div class="hostContainer">
-        <img class="hostPicture" src="/static/images/firewall.svg">
-      </div>
-    {% endif %}
+      {% if host.OS == "Cisco" %}
+	{% include 'host_template.html' %} 
+      {% endif %}
     {% endfor %}
 
   </div>
