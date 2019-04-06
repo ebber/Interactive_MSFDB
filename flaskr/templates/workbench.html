@@ -1,1 +1,36 @@
-<div id='workbench'> This is where the content/hosts etc. goes. I am in templates/workbench.html. </div>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+<body>
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+    <h2>Filter area</h2>
+  </div>
+  <div class="column">
+    <img class="osPicture" src="/static/images/Microsoft-Logo.png" >
+    <br/>
+    {% for host in hosts %}
+      <div class="hostContainer">
+        <img src="/static/images/Computer-Icon">
+      </div>
+    {% endfor %}
+  </div>
+  <div class="column">
+    <img class="osPicture" src="/static/images/Linux-Logo.png" >
+    <br/>
+  </div>
+  <div class="column">
+    <img class="osPicture" src="/static/images/Cisco-Logo.png" >
+    <br/>
+    {% for host in hosts %}
+      <div class="hostContainer">
+        <img src="/static/images/Computer-Icon">
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+</body>
+</html>
