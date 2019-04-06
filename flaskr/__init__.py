@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template
 
-from Interactive_MSFDB.flaskr.model.host_database import DB_Model
+from model.host_database import DB_Model
 
 
 def create_app(test_config=None):
