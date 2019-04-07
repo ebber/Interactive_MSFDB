@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 100vh;
+    margin-left: 0;
+    background: #343b55;
+    transition: all 0.3s;
+}
+
+#sidebar.deactive {
+    min-width: 0;
+    max-width: 0;
+}
+
+#sidebar.deactive .filter-rule{
+    display: none;
+}
+
+#sidebar.deactive .search-bar{
+    display: none;
+}

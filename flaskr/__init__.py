@@ -38,6 +38,15 @@ def create_app(test_config=None):
         host_list = host_database.get_hosts()
         return render_template('view_screen.html', hosts=host_list)
 
+    @app.route('/filter/add', methods=['POST'])
+    def add_filter_rule():
+        filter_text = request.values['rule']
+        return 'success addeding rule: ' + filter_text
+
+    @app.route('/filter/remove/<filter_id>')
+    def remove_filter_rule(filter_id):
+        return "successfully removed filter: " + str(filter_id)
+
     return app
 
 
