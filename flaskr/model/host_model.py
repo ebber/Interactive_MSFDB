@@ -12,9 +12,10 @@ class host:
 
     #ports -> [port] -> [(port num, service,info, state)]
     def initialize(self, ip, OS, ports, purpose):
-        self.ip = ip
+        self.ip = str(ip)
         self.OS = OS
         self.ports = ports 
+        self.num_ports = str(len(ports))
         self.purpose = purpose
 
     def init_test(self):
