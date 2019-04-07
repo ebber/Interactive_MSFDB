@@ -17,6 +17,8 @@ def create_app(test_config=None):
     host_database = DB_Model()
     host_database.test_update_hosts(20)
 
+    filter_rules = [] 
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -36,15 +38,17 @@ def create_app(test_config=None):
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
-        return render_template('view_screen.html', hosts=host_list)
+        return render_template('view_screen.html', hosts=host_list, filter_list = filter_rules)
 
     @app.route('/filter/add', methods=['POST'])
     def add_filter_rule():
         filter_text = request.values['rule']
+        filter_rules.append(filter_text)
         return 'success addeding rule: ' + filter_text
 
-    @app.route('/filter/remove/<filter_id>')
-    def remove_filter_rule(filter_id):
+    @app.route('/filter/remove/<filter_idx>')
+    def remove_filter_rule(filter_idx):
+        del filter_rules[filter_idx]
         return "successfully removed filter: " + str(filter_id)
 
     return app
