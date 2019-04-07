@@ -32,7 +32,7 @@ class DB_Model:
         rows = self.cursor.fetchall()
         for row in rows:
             host_ports = self.get_host_port_info(row[0]) #id
-            self.hosts.append(host(ip=row[1], OS=row[2], ports=host_ports, purpose=row[4], comments=row[5])) 
+            self.hosts.append(host(ident=row[0],ip=row[1], OS=row[2], ports=host_ports, purpose=row[4], comments=row[5])) 
         return True
 
     def test_update_hosts(self, num=1):
