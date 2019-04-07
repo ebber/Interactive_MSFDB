@@ -1,5 +1,11 @@
 {% block host_div %}
-      <div class="hostContainer">
-	<img class="hostPicture" src={{"/static/images/"+host.purpose+".svg"}}>
-      </div>
-{% endblock %} 
+<div class="hostContainer" data-toggle="tooltip" data-html="true" data-placement="top" title="<div>ip: 127.0.0.1</div><div>ports: 3 opened</div>">
+      <img class="hostPicture" src={{"/static/images/"+host.purpose+".svg"}}>
+</div>
+{% endblock %}
+
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
