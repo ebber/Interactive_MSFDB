@@ -1,11 +1,12 @@
 <html>
   <head>
-    <link rel="stylesheet" href="static/style.css">
+      <link rel="stylesheet" href="static/style.css">
+      <link rel="stylesheet" href="static/filter.css">
   </head>
 <body>
 <div class="row">
-  <div class="column" style="background-color:#aaa;">
-    <h2>Filter area</h2>
+  <div class="column wrapper">
+    {% include 'filter.html' %}
   </div>
   <div class="column">
     <img class="osPicture" src="/static/images/Microsoft-Logo.png" >

@@ -1,4 +1,4 @@
-import mock_host_data as mock
+import model.mock_host_data as mock
 import random
 
 class host:
