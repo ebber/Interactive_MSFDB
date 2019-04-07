@@ -15,7 +15,8 @@ class host:
     def initialize(self,ident, ip, OS, ports, purpose, comments):
         self.ip = str(ip)
         self.OS = OS
-        self.ports = ports 
+        self.ports = ports
+        self.ports.sort()
         self.num_ports = str(len(ports))
         self.purpose = purpose
         self.comments = comments

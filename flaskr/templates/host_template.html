@@ -18,14 +18,37 @@ $(function () {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-		<h5 class="modal-title" id="a{{host.id}}exampleModalLongTitle">Modal title</h5>
+		<h5 class="modal-title" id="a{{host.id}}exampleModalLongTitle">Host: {{host.id}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <!--Static Text-->
               <div class="modal-body">
-                Info we want to display.
+		<b> OS: </b> {{host.OS}} <br>
+		<b> IP Address: </b> {{host.ip}} <br>
+		<div class="port-list-div">
+		  <table class="table table-sm">
+		    <thead>
+		    <tr>
+		      <th scope="col">Port #</th>
+		      <th scope="col">Service</th>
+		      <th scope="col">Info </th>
+		      <th scope="col">State</th>
+		    </tr>
+		    </thead>
+		    <tbody>
+		      {% for port in host.ports %}
+		      <tr>
+			<th scope="row"> {{port[0]}} </th>
+			<td> {{port[1]}} </td>
+			<td> {{port[2]}} </td>
+			<td> {{port[3]}} </td>
+		      </tr>
+		      {% endfor %}
+		    </tbody>
+		</table>
+		</div>
               </div>
               <!--Text Box-->
               <div class="modal-body">
