@@ -30,14 +30,12 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
 
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
+        #apply filter rules
+            #parse 
         return render_template('view_screen.html', hosts=host_list, filter_list = filter_rules)
 
     @app.route('/filter/add', methods=['POST'])
