@@ -1,8 +1,9 @@
 <nav id="sidebar">
     <div class="search-bar m-3 mb-4">
-        <form class="form-inline my-2 my-lg-0 deactive-hide">
-            <input class="form-control mr-sm-2" type="search" placeholder="filter rules" style="width: 80%">
-            <button class="btn btn-info my-2 my-sm-0" type="submit">Add</button>
+        <form class="form-inline my-2 my-lg-0 deactive-hide" id="rule-form">
+            <input class="form-control mr-sm-2" type="search" placeholder="filter rules" style="width: 80%" name="rule"
+                id="rule-input">
+            <div class="btn btn-info my-2 my-sm-0" id="rule-submit-btn">Add</div>
         </form>
     </div>
     <div class="filter-rule">
@@ -66,3 +67,35 @@
 
     });
 </script>
+
+<script>
+    $(function () {
+        $("#rule-submit-btn").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/filter/add",
+                data: $('#rule-form').serialize(),
+                success: function () {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function () {
+                    console.log("failure");
+                }
+            });
+        });
+    });
+</script>
+
+<!-- <script>
+    $('#rule-submit').on('click', function () {
+        $.ajax({
+            url: '/filter/add',
+            type: 'post',
+            data: $('#rule-form').serialize(),
+            success: function () {
+                alert("worked");
+            }
+        });
+    });
+</script> -->
