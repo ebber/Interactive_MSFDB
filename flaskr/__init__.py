@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from model.host_database import DB_Model
 
