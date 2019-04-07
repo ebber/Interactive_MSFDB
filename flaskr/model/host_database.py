@@ -1,6 +1,6 @@
-from host_model import host
+from model.host_model import host
 
-import db_config
+import model.db_config
 from psycopg2 import connect
 
 class DB_Model:
