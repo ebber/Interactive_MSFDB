@@ -14,6 +14,7 @@
 </nav>
 
 <script>
+    // toggle the sidebar
     $(document).ready(function () {
 
         $('#siderbar-toggler').on('click', function () {
@@ -24,6 +25,7 @@
 </script>
 
 <script>
+    // add new rule
     $(function () {
         $("#rule-submit-btn").click(function () {
             $.ajax({
@@ -40,4 +42,23 @@
             });
         });
     });
+</script>
+
+<script>
+    // delete rule
+    $(".delete-rule").click(function () {
+        var rule_id = $(this).parent().index();
+        console.log("delete rule " + rule_id.toString());
+        $.ajax({
+                type: "DELETE",
+                url: "/filter/remove/" + rule_id.toString(),
+                success: function () {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function () {
+                    console.log("failure");
+                }
+            });
+    })
 </script>

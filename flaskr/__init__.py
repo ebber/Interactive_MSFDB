@@ -17,7 +17,7 @@ def create_app(test_config=None):
     host_database = DB_Model()
     host_database.test_update_hosts(20)
 
-    filter_rules = ["ports = (1-1024. 'OPEN')"] 
+    filter_rules = ["ports = (1-1024. 'OPEN')", "ports = (80, 'OPEN')"] 
 
     hardcoded_filters = {
             "IP = 196.*.*.*" : lambda host : False  if "196" in host.ip else True,
@@ -56,10 +56,10 @@ def create_app(test_config=None):
         filter_rules.append(filter_text)
         return 'success addeding rule: ' + filter_text
 
-    @app.route('/filter/remove/<filter_idx>')
+    @app.route('/filter/remove/<filter_idx>', methods=['DELETE'])
     def remove_filter_rule(filter_idx):
-        del filter_rules[filter_idx]
-        return "successfully removed filter: " + str(filter_id)
+        del filter_rules[int(filter_idx)]
+        return "successfully removed filter: " + filter_idx
 
     return app
 
