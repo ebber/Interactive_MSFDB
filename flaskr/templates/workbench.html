@@ -11,16 +11,17 @@
     <div class="column wrapper">
       {% include 'filter.html' %}
     </div>
+
     <div class="column">
-
       <img class="osPicture" src="/static/images/Microsoft-Logo.png">
-
       <br />
-
-      {% for filter_rule in filter_rules %}
+      {% for host in hosts %}
+      {% if host.OS == "Windows" %}
       {% include 'host_template.html' %}
+      {% endif %}
       {% endfor %}
     </div>
+
     <div class="column">
       <img class="osPicture" src="/static/images/Linux-Logo.png">
       <br />
@@ -30,15 +31,15 @@
       {% endif %}
       {% endfor %}
     </div>
+
     <div class="column">
       <img class="osPicture" src="/static/images/Cisco-Logo.png">
       <br />
       {% for host in hosts %}
       {% if host.OS == "Cisco" %}
       {% include 'host_template.html' %}
-      z {% endif %}
+      {% endif %}
       {% endfor %}
-
     </div>
   </div>
 
