@@ -11,32 +11,30 @@
   </div>
   <div class="column">
 
-    <img class="osPicture" src="/static/images/Microsoft-Logo.png" style="width:100px;height:64px";>
+    <img class="osPicture" src="/static/images/Microsoft-Logo.png">
 
     <br/>
 
-    {% for host in hosts %}
-      {% if host.OS == "Windows" %}
-       {% include 'host_template.html' %}
-      {% endif %}
+    {% for filter_rule in filter_rules %}
+      {% include 'host_template.html' %}
     {% endfor %}
   </div>
   <div class="column">
-    <img class="osPicture" src="/static/images/Linux-Logo.png" style="width:100px;height:64px";>
+    <img class="osPicture" src="/static/images/Linux-Logo.png" >
     <br/>
     {% for host in hosts %}
       {% if host.OS == "Linux" %}
-	     {% include 'host_template.html' %}
+	 {% include 'host_template.html' %} 
       {% endif %}
     {% endfor %}
   </div>
   <div class="column">
-    <img class="osPicture" src="/static/images/Cisco-Logo.png" style="width:100px;height:64px";>
+    <img class="osPicture" src="/static/images/Cisco-Logo.png" >
     <br/>
     {% for host in hosts %}
       {% if host.OS == "Cisco" %}
-	     {% include 'host_template.html' %}
-      {% endif %}
+	 {% include 'host_template.html' %} 
+z      {% endif %}
     {% endfor %}
 
   </div>
