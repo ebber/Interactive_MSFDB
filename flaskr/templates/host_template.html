@@ -10,7 +10,21 @@
 <script>
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
+});
+
+function postComment(){
+    var xhr = new XMLHttpRequest();
+    var url = "/comment";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    var data = JSON.stringify({
+        "host_id": "a123",
+        "comment": document.getElementById("message-text").value
+    });
+    xhr.send(data);
+}
+
 </script>
 
         <!-- Modal -->
@@ -25,20 +39,19 @@ $(function () {
               </div>
               <!--Static Text-->
               <div class="modal-body">
-                Info we want to display.
+                Info we wanted to display.
               </div>
               <!--Text Box-->
               <div class="modal-body">
                <form>
                  <div class="form-group">
                    <label for="Notes" class="col-form-label">Notes:</label>
-                   <textarea class="form-control" id="message-text"></textarea>
+                   <textarea id="message-text" class="form-control"></textarea>
                  </div>
                </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" onclick="postComment()" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>

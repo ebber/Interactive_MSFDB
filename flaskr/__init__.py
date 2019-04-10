@@ -47,7 +47,30 @@ def create_app(test_config=None):
     @app.route('/filter/remove/<filter_idx>')
     def remove_filter_rule(filter_idx):
         del filter_rules[filter_idx]
-        return "successfully removed filter: " + str(filter_id)
+        return "successfully removed filter: " + str(filter_idx)
+
+    @app.route('/comment', methods=['POST'])
+    def add_comment():
+        request_data = request.get_json()
+        return request_data['host_id'] + " : " + request_data['comment']
+
+    @app.route('/json_example', methods=["POST"])
+    def json_example():
+        request_data = request.get_json()
+
+        language = request_data['language']
+        framework = request_data['framework']
+        python_version = request_data['version_info']['Python']
+        #json_example =
+        #boolean_test
+
+        return """
+        <h1>
+        The language value is {}.
+        The framework value is {}.
+        The python version value is {}.
+        </h1>
+        """.format(language, framework, python_version)
 
     return app
 
