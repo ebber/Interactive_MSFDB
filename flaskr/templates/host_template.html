@@ -18,10 +18,9 @@ function postComment(){
     var url = "/comment";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-
     var data = JSON.stringify({
-        "host_id": "a123",
-        "comment": document.getElementById("message-text").value
+        "host_id": {{ host.id }},
+        "comment": document.getElementById("a" + {{host.id}} + "message-text").value
     });
     xhr.send(data);
 }
