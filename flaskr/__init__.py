@@ -58,8 +58,15 @@ def create_app(test_config=None):
 
     @app.route('/filter/remove/<filter_idx>', methods=['DELETE'])
     def remove_filter_rule(filter_idx):
-        del filter_rules[int(filter_idx)]
-        return "successfully removed filter: " + filter_idx
+        del filter_rules[filter_idx]
+        return "successfully removed filter: " + str(filter_idx)
+
+    @app.route('/comment', methods=['POST'])
+    def add_comment():
+        request_data = request.get_json()
+        print(request_data)
+        #return request_data['host_id'] + " : " + request_data['comment']
+        return "success"
 
     return app
 
