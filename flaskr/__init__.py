@@ -17,7 +17,13 @@ def create_app(test_config=None):
     host_database = DB_Model()
     host_database.test_update_hosts(20)
 
-    filter_rules = [] 
+    filter_rules = ["ports = (1-1024. 'OPEN')", "ports = (80, 'OPEN')"] 
+
+    hardcoded_filters = {
+            "IP = 196.*.*.*" : lambda host : False  if "196" in host.ip else True,
+            "ports = (80, 'OPEN')" : lambda host : False if len(host.ports) >0 and host.ports[0][0] == "80" else True,
+            "ports = (1-1024. 'OPEN')" : lambda host : False if len(host.ports) ==0 else True
+            }
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -35,8 +41,14 @@ def create_app(test_config=None):
     def render_app():
         host_list = host_database.get_hosts()
         #apply filter rules
-            #parse 
-        return render_template('view_screen.html', hosts=host_list, filter_list = filter_rules)
+        filtered_host_list = host_list
+        for rule in filter_rules:
+            filtered_host_list = filter( hardcoded_filters[rule], filtered_host_list)
+
+        print(len(host_list))
+        print(len(filtered_host_list))
+        
+        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules)
 
     @app.route('/filter/add', methods=['POST'])
     def add_filter_rule():
@@ -44,7 +56,7 @@ def create_app(test_config=None):
         filter_rules.append(filter_text)
         return 'success addeding rule: ' + filter_text
 
-    @app.route('/filter/remove/<filter_idx>')
+    @app.route('/filter/remove/<filter_idx>', methods=['DELETE'])
     def remove_filter_rule(filter_idx):
         del filter_rules[filter_idx]
         return "successfully removed filter: " + str(filter_idx)

@@ -1,63 +1,20 @@
 <nav id="sidebar">
     <div class="search-bar m-3 mb-4">
-        <form class="form-inline my-2 my-lg-0 deactive-hide">
-            <input class="form-control mr-sm-2" type="search" placeholder="filter rules" style="width: 80%">
-            <button class="btn btn-info my-2 my-sm-0" type="submit">Add</button>
+        <form class="form-inline my-2 my-lg-0 deactive-hide" id="rule-form">
+            <input class="form-control mr-sm-2" type="search" placeholder="filter rules" style="width: 80%" name="rule"
+                id="rule-input">
+            <div class="btn btn-info my-2 my-sm-0" id="rule-submit-btn">Add</div>
         </form>
     </div>
     <div class="filter-rule">
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="alert alert-dark m-3 alert-dismissible fade show" role="alert">
-            ip.address = 192.168.0.0/16
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        {% for filter in filter_list %}
+          {% include 'rule_template.html' %}
+        {% endfor %}
     </div>
 </nav>
 
 <script>
+    // toggle the sidebar
     $(document).ready(function () {
 
         $('#siderbar-toggler').on('click', function () {
@@ -65,4 +22,43 @@
         });
 
     });
+</script>
+
+<script>
+    // add new rule
+    $(function () {
+        $("#rule-submit-btn").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/filter/add",
+                data: $('#rule-form').serialize(),
+                success: function () {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function () {
+                    console.log("failure");
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    // delete rule
+    $(".delete-rule").click(function () {
+        var rule_id = $(this).parent().index();
+        console.log("delete rule " + rule_id.toString());
+        $.ajax({
+                type: "DELETE",
+                url: "/filter/remove/" + rule_id.toString(),
+                success: function () {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function () {
+                    console.log("failure");
+                }
+            });
+    })
 </script>
