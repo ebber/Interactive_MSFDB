@@ -43,7 +43,10 @@ def create_app(test_config=None):
         #apply filter rules
         filtered_host_list = host_list
         for rule in filter_rules:
-            filtered_host_list = filter( hardcoded_filters[rule], filtered_host_list)
+            try: 
+                filtered_host_list = filter( hardcoded_filters[rule], filtered_host_list)
+            except:
+                pass
 
         print(len(host_list))
         print(len(filtered_host_list))
@@ -58,7 +61,8 @@ def create_app(test_config=None):
 
     @app.route('/filter/remove/<filter_idx>', methods=['DELETE'])
     def remove_filter_rule(filter_idx):
-        del filter_rules[filter_idx]
+        del filter_rules[int(filter_idx)]
+        print("rule removed")
         return "successfully removed filter: " + str(filter_idx)
 
     @app.route('/comment', methods=['POST'])
