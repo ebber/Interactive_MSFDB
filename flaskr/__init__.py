@@ -68,7 +68,6 @@ def create_app(test_config=None):
     @app.route('/comment', methods=['POST'])
     def add_comment():
         request_data = request.get_json()
-        print(request_data)
         #return request_data['host_id'] + " : " + request_data['comment']
         return "success"
 
