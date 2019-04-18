@@ -10,14 +10,14 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
 	#set up vars from config here
-	SECRET_KEY = "Test" #Change to random seed for production, used by flask for signing cookies etc
+	SECRET_KEY = "Test" #Change to random seed for production, used by flask for signing cookies etc	
     )
 
     # Link the host database to the web app
     host_database = DB_Model()
     host_database.test_update_hosts(20)
 
-    filter_rules = ["ports = (1-1024. 'OPEN')", "ports = (80, 'OPEN')"]
+    filter_rules = ["ports = (1-1024. 'OPEN')", "ports = (80, 'OPEN')"] 
 
     hardcoded_filters = {
             "IP = 196.*.*.*" : lambda host : False  if "196" in host.ip else True,
@@ -40,20 +40,18 @@ def create_app(test_config=None):
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
-        site_view_toggle = host_database.get_view_toggle()
-
         #apply filter rules
         filtered_host_list = host_list
         for rule in filter_rules:
-            try:
+            try: 
                 filtered_host_list = filter( hardcoded_filters[rule], filtered_host_list)
             except:
                 pass
 
         print(len(host_list))
         print(len(filtered_host_list))
-
-        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, view_toggle = site_view_toggle)
+        
+        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules)
 
     @app.route('/filter/add', methods=['POST'])
     def add_filter_rule():

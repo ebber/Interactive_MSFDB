@@ -16,9 +16,9 @@
       <img class="osPicture" src="/static/images/Microsoft-Logo.png">
       <br />
       {% for host in hosts %}
-          {% if host.OS == "Windows" %}
-            {% include 'host_template.html' %}
-          {% endif %}
+      {% if host.OS == "Windows" %}
+      {% include 'host_template.html' %}
+      {% endif %}
       {% endfor %}
     </div>
 
@@ -26,7 +26,7 @@
       <img class="osPicture" src="/static/images/Linux-Logo.png">
       <br />
       {% for host in hosts %}
-      {% if host.OS == "Windows" %}
+      {% if host.OS == "Linux" %}
       {% include 'host_template.html' %}
       {% endif %}
       {% endfor %}
