@@ -1,48 +1,39 @@
-<html>
+<div class="wrapper">
+  <!-- Sidebar -->
+  {% include 'filter.html' %}
 
-<head>
+  <!-- Hosts -->
+  <div id="content" class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <img class="osPicture" src="/static/images/Microsoft-Logo.png">
+        <br />
+        {% for host in hosts %}
+        {% if host.OS == "Windows" %}
+        {% include 'host_template.html' %}
+        {% endif %}
+        {% endfor %}
+      </div>
 
-  <link rel="stylesheet" href="static/style.css">
-  <link rel="stylesheet" href="static/filter.css">
-</head>
+      <div class="col">
+        <img class="osPicture" src="/static/images/Linux-Logo.png">
+        <br />
+        {% for host in hosts %}
+        {% if host.OS == "Linux" %}
+        {% include 'host_template.html' %}
+        {% endif %}
+        {% endfor %}
+      </div>
 
-<body>
-  <div class="row">
-    <div class="column wrapper">
-      {% include 'filter.html' %}
-    </div>
-
-    <div class="column">
-      <img class="osPicture" src="/static/images/Microsoft-Logo.png">
-      <br />
-      {% for host in hosts %}
-      {% if host.OS == "Windows" %}
-      {% include 'host_template.html' %}
-      {% endif %}
-      {% endfor %}
-    </div>
-
-    <div class="column">
-      <img class="osPicture" src="/static/images/Linux-Logo.png">
-      <br />
-      {% for host in hosts %}
-      {% if host.OS == "Linux" %}
-      {% include 'host_template.html' %}
-      {% endif %}
-      {% endfor %}
-    </div>
-
-    <div class="column">
-      <img class="osPicture" src="/static/images/Cisco-Logo.png">
-      <br />
-      {% for host in hosts %}
-      {% if host.OS == "Cisco" %}
-      {% include 'host_template.html' %}
-      {% endif %}
-      {% endfor %}
+      <div class="col">
+        <img class="osPicture" src="/static/images/Cisco-Logo.png">
+        <br />
+        {% for host in hosts %}
+        {% if host.OS == "Cisco" %}
+        {% include 'host_template.html' %}
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-
-</body>
-
-</html>
+</div>

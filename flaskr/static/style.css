@@ -79,3 +79,8 @@ img {
     height: auto;
     width: auto\9; /* ie8 */
 }
+
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}

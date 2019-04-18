@@ -8,7 +8,7 @@
     </div>
     <div class="filter-rule">
         {% for filter in filter_list %}
-          {% include 'rule_template.html' %}
+        {% include 'rule_template.html' %}
         {% endfor %}
     </div>
 </nav>
@@ -50,15 +50,15 @@
         var rule_id = $(this).parent().index();
         console.log("delete rule " + rule_id.toString());
         $.ajax({
-                type: "DELETE",
-                url: "/filter/remove/" + rule_id.toString(),
-                success: function () {
-                    console.log("success");
-                    location.reload();
-                },
-                error: function () {
-                    console.log("failure");
-                }
-            });
+            type: "DELETE",
+            url: "/filter/remove/" + rule_id.toString(),
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
     })
 </script>
