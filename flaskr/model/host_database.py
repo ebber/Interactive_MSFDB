@@ -25,7 +25,7 @@ class DB_Model:
         if self.view_toggle == "ports":
             self.hosts.sort(key=lambda x: x.num_ports, reverse=True)
         else:
-            self.hosts.sort(key=lambda x: x.num_ports, reverse=True)
+            self.hosts.sort(key=lambda x: x.num_ports, reverse=False)
         return self.hosts
 
     def get_view_toggle(self):
@@ -42,7 +42,10 @@ class DB_Model:
         for row in rows:
             host_ports = self.get_host_port_info(row[0]) #id
             self.hosts.append(host(ident=row[0],ip=row[1], OS=row[2], ports=host_ports, purpose=row[4], comments=row[5]))
-        self.hosts.sort(key=lambda x: x.num_ports, reverse=True)
+        if self.view_toggle == "ports":
+            self.hosts.sort(key=lambda x: x.num_ports, reverse=True)
+        else:
+            self.hosts.sort(key=lambda x: x.num_ports, reverse=False)
         return True
 
     def test_update_hosts(self, num=1):

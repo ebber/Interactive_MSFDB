@@ -19,11 +19,21 @@
                     aria-haspopup="true" aria-expanded="false">
                     <font color="white">View</font>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ports</a>
-                    {% view_toggle = 'ports' %}
-                    <a class="dropdown-item" href="#">Purpose</a>
-                    {% view_toggle = 'purpose' %}
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type=href="#" onClick="refreshPagePorts()">Ports</button>
+                    <script>
+                    function refreshPagePorts(){
+                        {% set view_toggle = 'ports' %}
+                        window.location.reload();
+                    }
+                    </script>
+                    <button class="dropdown-item" href="#" onClick="refreshPagePurpose()">Purpose</button>
+                    <script>
+                    function refreshPagePurpose(){
+                        {% set view_toggle = 'purpose' %}
+                        window.location.reload();
+                    }
+                    </script>
                 </div>
             </li>
             <li>
