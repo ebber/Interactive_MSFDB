@@ -55,6 +55,12 @@ def create_app(test_config=None):
 
         return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, view_toggle = site_view_toggle)
 
+    @app.route('/ribbon/', methods=['PORTS_VIEW'])
+    def reload_view_rule():
+        view_toggle = 'ports'
+
+    @app.route
+
     @app.route('/filter/add', methods=['POST'])
     def add_filter_rule():
         filter_text = request.values['rule']
