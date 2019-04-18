@@ -22,12 +22,10 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     <button class="dropdown-item" type=href="#" onClick="refreshPagePorts()" id="ports-btn">Ports</button>
                     <script>
-                    $(".delete-rule").click(function () {
-                        var rule_id = $(this).parent().index();
-                        console.log("delete rule " + rule_id.toString());
+                    $("#.ports-btn").click(function () {
                         $.ajax({
-                                type: "DELETE",
-                                url: "/filter/remove/" + rule_id.toString(),
+                                type: "PORTS_VIEW",
+                                url: "/view/ports/",
                                 success: function () {
                                     console.log("success");
                                     location.reload();
@@ -40,10 +38,19 @@
                     </script>
                     <button class="dropdown-item" href="#" onClick="refreshPagePurpose()" id="purpose-btn">Purpose</button>
                     <script>
-                    function refreshPagePurpose(){
-                        {% set view_toggle = 'purpose' %}
-                        window.location.reload();
-                    }
+                      $("#.purpose-btn").click(function () {
+                          $.ajax({
+                                  type: "PURPOSE_VIEW",
+                                  url: "/view/purpose/",
+                                  success: function () {
+                                      console.log("success");
+                                      location.reload();
+                                  },
+                                  error: function () {
+                                      console.log("failure");
+                                  }
+                              });
+                      })
                     </script>
                 </div>
             </li>

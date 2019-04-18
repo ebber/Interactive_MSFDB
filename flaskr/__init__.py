@@ -5,6 +5,7 @@ from flask import Flask, render_template, request
 from model.host_database import DB_Model
 
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -16,13 +17,14 @@ def create_app(test_config=None):
     # Link the host database to the web app
     host_database = DB_Model()
     host_database.test_update_hosts(20)
+    view_toggle = 'ports'
 
     filter_rules = ["ports = (1-1024. 'OPEN')", "ports = (80, 'OPEN')"]
 
     hardcoded_filters = {
             "IP = 196.*.*.*" : lambda host : False  if "196" in host.ip else True,
             "ports = (80, 'OPEN')" : lambda host : False if len(host.ports) >0 and host.ports[0][0] == "80" else True,
-            "ports = (1-1024. 'OPEN')" : lambda host : False if len(host.ports) ==0 else True
+            "ports = (1-1024. 'OPEN')" : lambda host : False if len(host.ports) ==0 else True,
             }
 
     if test_config is None:
@@ -40,7 +42,6 @@ def create_app(test_config=None):
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
-        site_view_toggle = host_database.get_view_toggle()
 
         #apply filter rules
         filtered_host_list = host_list
@@ -53,19 +54,29 @@ def create_app(test_config=None):
         print(len(host_list))
         print(len(filtered_host_list))
 
-        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, view_toggle = site_view_toggle)
+        if view_toggle == "ports":
+            filtered_host_list.sort(key=lambda x: x.num_ports, reverse=True)
+        else:
+            filtered_host_list.sort(key=lambda x: x.num_ports, reverse=False)
 
-    @app.route('/ribbon/', methods=['PORTS_VIEW'])
-    def reload_view_rule():
+        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, view_toggle = view_toggle)
+
+
+    @app.route('/view/ports', methods=['PORTS_VIEW'])
+    def ports_view_rule():
         view_toggle = 'ports'
+        return 'success switching to ports view'
 
-    @app.route
+    @app.route('/view/purpose', methods=['PURPOSE_VIEW'])
+    def purpose_view_rule():
+        view_toggle = 'purpose'
+        return 'success switching to purpose view'
 
     @app.route('/filter/add', methods=['POST'])
     def add_filter_rule():
         filter_text = request.values['rule']
         filter_rules.append(filter_text)
-        return 'success addeding rule: ' + filter_text
+        return 'success adding rule: ' + filter_text
 
     @app.route('/filter/remove/<filter_idx>', methods=['DELETE'])
     def remove_filter_rule(filter_idx):
