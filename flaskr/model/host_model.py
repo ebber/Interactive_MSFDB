@@ -2,6 +2,12 @@ import model.mock_host_data as mock
 import random
 
 class host:
+    ip = None
+    OS = None
+    ports = None
+    services = None
+    purpose = None
+    comments = None
 
     def __init__(self,ident = -1, ip = False, OS = False, ports = False ,services = False, purpose = False, comments=""):
 
