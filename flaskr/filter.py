@@ -32,7 +32,7 @@ def gen_num_lambda(property_name, property_range):
 
 def gen_str_lambda(property_name, property_range):
     #TODO (low priority): implement regex
-    return lambda host: False if host[property_name] is str(property_range) else True
+    return lambda host: True if (str(host[property_name])) in (str(property_range)) else False
 
 #parse_component :: String -> Maybe([host -> Bool])
 def parse_component(component_string):
