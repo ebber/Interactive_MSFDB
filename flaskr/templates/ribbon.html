@@ -22,13 +22,13 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     <button class="dropdown-item" type=href="#" onClick="refreshPagePorts()" id="ports-btn">Ports</button>
                     <script>
-                    $("#.ports-btn").click(function () {
+                    $("#ports-btn").click(function () {
                         $.ajax({
-                                type: "PORTS_VIEW",
+                                type: "PORTS",
                                 url: "/view/ports/",
                                 success: function () {
                                     console.log("success");
-                                    location.reload();
+                                    window.location.reload();
                                 },
                                 error: function () {
                                     console.log("failure");
@@ -38,13 +38,13 @@
                     </script>
                     <button class="dropdown-item" href="#" onClick="refreshPagePurpose()" id="purpose-btn">Purpose</button>
                     <script>
-                      $("#.purpose-btn").click(function () {
+                      $("#purpose-btn").click(function () {
                           $.ajax({
-                                  type: "PURPOSE_VIEW",
+                                  type: "PURPOSE",
                                   url: "/view/purpose/",
                                   success: function () {
                                       console.log("success");
-                                      location.reload();
+                                      window.location.reload();
                                   },
                                   error: function () {
                                       console.log("failure");

@@ -39,9 +39,16 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+
+
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
+
+        if view_toggle == "ports":
+            host_list.sort(key=lambda host: host.num_ports, reverse=True)
+        else:
+            host_list.sort(key=lambda host: host.num_ports, reverse=False)
 
         #apply filter rules
         filtered_host_list = host_list
@@ -54,20 +61,15 @@ def create_app(test_config=None):
         print(len(host_list))
         print(len(filtered_host_list))
 
-        if view_toggle == "ports":
-            filtered_host_list.sort(key=lambda x: x.num_ports, reverse=True)
-        else:
-            filtered_host_list.sort(key=lambda x: x.num_ports, reverse=False)
-
-        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, view_toggle = view_toggle)
+        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules)
 
 
-    @app.route('/view/ports', methods=['PORTS_VIEW'])
+    @app.route('/view/ports', methods=['PORTS'])
     def ports_view_rule():
         view_toggle = 'ports'
         return 'success switching to ports view'
 
-    @app.route('/view/purpose', methods=['PURPOSE_VIEW'])
+    @app.route('/view/purpose', methods=['PURPOSE'])
     def purpose_view_rule():
         view_toggle = 'purpose'
         return 'success switching to purpose view'
