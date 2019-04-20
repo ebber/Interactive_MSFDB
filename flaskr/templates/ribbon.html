@@ -25,7 +25,7 @@
                     $("#ports-btn").click(function () {
                         $.ajax({
                                 type: "PORTS",
-                                url: "/view/ports/",
+                                url: "/ribbon/ports/",
                                 success: function () {
                                     console.log("success");
                                     window.location.reload();
@@ -41,7 +41,7 @@
                       $("#purpose-btn").click(function () {
                           $.ajax({
                                   type: "PURPOSE",
-                                  url: "/view/purpose/",
+                                  url: "ribbon/purpose/",
                                   success: function () {
                                       console.log("success");
                                       window.location.reload();
