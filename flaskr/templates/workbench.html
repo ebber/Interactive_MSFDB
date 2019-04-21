@@ -20,11 +20,16 @@
         <br />
         {% for host in hosts %}
         {% if host.OS == "Linux" %}
-
-          {% include 'host_template.html' %}
-
+        {% include 'host_template.html' %}
         {% endif %}
         {% endfor %}
+
+        <!--{% if view_toggle == "ports" %}
+          {% include 'port_view.html' %}
+        {% endif %}
+        {% if view_toggle == "ports" %}
+          {% include 'purpose_view.html' %}
+        {% endif %}-->
       </div>
 
       <div class="col">
