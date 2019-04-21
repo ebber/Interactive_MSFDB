@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="wrapper">
   <!-- Sidebar -->
   {% include 'filter.html' %}
@@ -37,3 +38,53 @@
     </div>
   </div>
 </div>
+=======
+<html>
+
+<head>
+
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/filter.css">
+</head>
+
+<body>
+  <div class="row">
+    <div class="column wrapper">
+      {% include 'filter.html' %}
+    </div>
+
+    <div class="column">
+      <img class="osPicture" src="/static/images/Microsoft-Logo.png">
+      <br />
+      {% for host in hosts %}
+          {% if host.OS == "Windows" %}
+            {% include 'host_template.html' %}
+          {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="column">
+      <img class="osPicture" src="/static/images/Linux-Logo.png">
+      <br />
+      {% for host in hosts %}
+      {% if host.OS == "Linux" %}
+      {% include 'host_template.html' %}
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="column">
+      <img class="osPicture" src="/static/images/Cisco-Logo.png">
+      <br />
+      {% for host in hosts %}
+      {% if host.OS == "Cisco" %}
+      {% include 'host_template.html' %}
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+
+</html>
+>>>>>>> ports_view
