@@ -68,6 +68,10 @@ def create_app(test_config=None):
         #print(len(filtered_host_list))
         return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, error=error, view = view_toggle)
 
+    @app.route('/toggle_marked/<host_id>')
+    def ports_view_rule(host_id):
+        host_database[int(host_id)].is_marked = true
+        return 'success'
 
     @app.route('/ribbon/ports', methods=['PORTS'])
     def ports_view_rule():
