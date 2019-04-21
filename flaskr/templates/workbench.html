@@ -20,7 +20,9 @@
         <br />
         {% for host in hosts %}
         {% if host.OS == "Linux" %}
-        {% include 'host_template.html' %}
+
+          {% include 'host_template.html' %}
+
         {% endif %}
         {% endfor %}
       </div>
