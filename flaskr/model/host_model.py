@@ -9,7 +9,7 @@ class host:
             self.initialize(ip, ident, OS, ports, purpose, comments)
         else:
             self.init_test()
-            
+
 
     #ports -> [port] -> [(port num, service,info, state)]
     def initialize(self,ident, ip, OS, ports, purpose, comments):
@@ -44,5 +44,5 @@ class host:
 
 
 if __name__ == '__main__':
-    t_host = host() 
+    t_host = host()
     print(t_host.toString())

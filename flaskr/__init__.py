@@ -48,8 +48,9 @@ def create_app(test_config=None):
         if view_toggle == 'ports':
             host_list.sort(key=lambda host: host.num_ports, reverse=True)
         else:
-            # host_list.sort(key=lambda host: host.num_ports, reverse=False)
+             host_list.sort(key=lambda host: host.num_ports, reverse=False)
             # Authentication, Firewall, Database, Proxy, Router
+
 
         print(view_toggle)
 
