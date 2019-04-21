@@ -19,9 +19,16 @@ class DB_Model:
 
 
         self.hosts = []
+        self.view_toggle = 'ports'
 
     def get_hosts(self):
         return self.hosts
+
+    def get_view(self):
+        return self.view_toggle
+
+    def set_view(self, value):
+        self.view_toggle = value
 
     #update from the DB
     def update_hosts(self):

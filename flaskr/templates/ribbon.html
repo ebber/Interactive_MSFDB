@@ -25,10 +25,10 @@
                     $("#ports-btn").click(function () {
                         $.ajax({
                                 type: "PORTS",
-                                url: "/ribbon/ports/",
+                                url: "/ribbon/ports",
                                 success: function () {
                                     console.log("success");
-                                    window.location.reload();
+                                    location.reload();
                                 },
                                 error: function () {
                                     console.log("failure");
@@ -41,10 +41,10 @@
                       $("#purpose-btn").click(function () {
                           $.ajax({
                                   type: "PURPOSE",
-                                  url: "ribbon/purpose/",
+                                  url: "ribbon/purpose",
                                   success: function () {
                                       console.log("success");
-                                      window.location.reload();
+                                      location.reload();
                                   },
                                   error: function () {
                                       console.log("failure");

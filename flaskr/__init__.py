@@ -17,7 +17,6 @@ def create_app(test_config=None):
     # Link the host database to the web app
     host_database = DB_Model()
     host_database.test_update_hosts(20)
-    view_toggle = 'ports'
 
     filter_rules = ["ports = (1-1024. 'OPEN')", "ports = (80, 'OPEN')"]
 
@@ -44,11 +43,7 @@ def create_app(test_config=None):
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
-
-        if view_toggle == "ports":
-            host_list.sort(key=lambda host: host.num_ports, reverse=True)
-        else:
-            host_list.sort(key=lambda host: host.num_ports, reverse=False)
+        view_toggle = host_database.get_view()
 
         #apply filter rules
         filtered_host_list = host_list
@@ -61,17 +56,24 @@ def create_app(test_config=None):
         print(len(host_list))
         print(len(filtered_host_list))
 
+        if view_toggle == 'ports':
+            filtered_host_list.sort(key=lambda host: host.num_ports, reverse=True)
+        else:
+            filtered_host_list.sort(key=lambda host: host.num_ports, reverse=False)
+
+        print(view_toggle)
+
         return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules)
 
 
-    @app.route('/view/ports', methods=['PORTS'])
+    @app.route('/ribbon/ports', methods=['PORTS'])
     def ports_view_rule():
-        view_toggle = 'ports'
+        host_database.set_view("ports")
         return 'success switching to ports view'
 
-    @app.route('/view/purpose', methods=['PURPOSE'])
+    @app.route('/ribbon/purpose', methods=['PURPOSE'])
     def purpose_view_rule():
-        view_toggle = 'purpose'
+        host_database.set_view("purpose")
         return 'success switching to purpose view'
 
     @app.route('/filter/add', methods=['POST'])
