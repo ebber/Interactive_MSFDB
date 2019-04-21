@@ -8,6 +8,7 @@ class host:
     services = None
     purpose = None
     comments = None
+    is_marked = False
 
     def __init__(self,ident = -1, ip = False, OS = False, ports = False ,services = False, purpose = False, comments=""):
 
