@@ -45,6 +45,14 @@ def create_app(test_config=None):
         host_list = host_database.get_hosts()
         view_toggle = host_database.get_view()
 
+        if view_toggle == 'ports':
+            host_list.sort(key=lambda host: host.num_ports, reverse=True)
+        else:
+            # host_list.sort(key=lambda host: host.num_ports, reverse=False)
+            # Authentication, Firewall, Database, Proxy, Router
+
+        print(view_toggle)
+
         #apply filter rules
         filtered_host_list = host_list
         for rule in filter_rules:
@@ -55,13 +63,6 @@ def create_app(test_config=None):
 
         print(len(host_list))
         print(len(filtered_host_list))
-
-        if view_toggle == 'ports':
-            filtered_host_list.sort(key=lambda host: host.num_ports, reverse=True)
-        else:
-            filtered_host_list.sort(key=lambda host: host.num_ports, reverse=False)
-
-        print(view_toggle)
 
         return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules)
 
