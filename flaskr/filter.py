@@ -49,7 +49,7 @@ def gen_ip_lambda(property_name, property_range):
     else:
         print(CIDR_split)
         return None
-    return (lambda x: True)
+    return None # should never get to this point 
 
 def gen_num_lambda(property_name, property_range):
     print("generating number lambda")
