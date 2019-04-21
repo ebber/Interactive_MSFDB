@@ -4,6 +4,14 @@
             <input class="form-control mr-sm-2" type="search" placeholder="filter rules" style="width: 80%" name="rule"
                 id="rule-input">
             <div class="btn btn-info my-2 my-sm-0" id="rule-submit-btn">Add</div>
+            {% if error != '' %}
+                <div class="alert alert-danger m-3 alert-dismissible fade show">
+                    {{ error }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {%  endif %}
         </form>
     </div>
     <div class="filter-rule">
@@ -19,7 +27,7 @@
 
         $('#siderbar-toggler').on('click', function () {
             $('#sidebar').toggleClass('deactive');
-        });
+        });z
 
     });
 </script>

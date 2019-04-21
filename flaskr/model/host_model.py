@@ -2,6 +2,12 @@ import model.mock_host_data as mock
 import random
 
 class host:
+    ip = None
+    OS = None
+    ports = None
+    services = None
+    purpose = None
+    comments = None
 
     def __init__(self,ident = -1, ip = False, OS = False, ports = False ,services = False, purpose = False, comments=""):
 
@@ -9,7 +15,7 @@ class host:
             self.initialize(ip, ident, OS, ports, purpose, comments)
         else:
             self.init_test()
-            
+
 
     #ports -> [port] -> [(port num, service,info, state)]
     def initialize(self,ident, ip, OS, ports, purpose, comments):
@@ -44,5 +50,5 @@ class host:
 
 
 if __name__ == '__main__':
-    t_host = host() 
+    t_host = host()
     print(t_host.toString())

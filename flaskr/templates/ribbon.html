@@ -9,19 +9,49 @@
     <div class="collapse navbar-collapse mr-5">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-4 top-navbar">
-                <a class="nav-link" href="#"><font color="white">File</font></a>
+                <a class="nav-link" href="#"><font color="white">About</font></a>
             </li>
             <li class="nav-item mx-4 top-navbar">
-                <a class="nav-link" href="#"><font color="white">Plugin</font></a>
+                <a class="nav-link" href="#"><font color="white">File</font></a>
             </li>
             <li class="nav-item mx-4 dropdown top-navbar">
                 <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <font color="white">View</font>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ports</a>
-                    <a class="dropdown-item" href="#">Purpose</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type=href="#" onClick="refreshPagePorts()" id="ports-btn">Ports</button>
+                    <script>
+                    $("#ports-btn").click(function () {
+                        $.ajax({
+                                type: "PORTS",
+                                url: "/ribbon/ports",
+                                success: function () {
+                                    console.log("success");
+                                    location.reload();
+                                },
+                                error: function () {
+                                    console.log("failure");
+                                }
+                            });
+                    })
+                    </script>
+                    <button class="dropdown-item" href="#" onClick="refreshPagePurpose()" id="purpose-btn">Purpose</button>
+                    <script>
+                      $("#purpose-btn").click(function () {
+                          $.ajax({
+                                  type: "PURPOSE",
+                                  url: "ribbon/purpose",
+                                  success: function () {
+                                      console.log("success");
+                                      location.reload();
+                                  },
+                                  error: function () {
+                                      console.log("failure");
+                                  }
+                              });
+                      })
+                    </script>
                 </div>
             </li>
             <li>
