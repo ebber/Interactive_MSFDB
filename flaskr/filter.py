@@ -1,8 +1,8 @@
 
-
-
 from model.host_model import host
+
 test_host_model = vars(host())
+
 # prepare_filter :: String -> Maybe([host -> Bool])
 def prepare_filter(query_str):
     pass
@@ -66,13 +66,15 @@ def parse_component(component_string):
     #split on equal
     split_str = component_string.split("=")
     if len(split_str) != 2:
-        return None #this should probably be exceptions
-    split_str = map(str.strip, split_str)
+        return "Filter is improperly formatted."
+    split_str = list(map(str.strip, split_str))
     property_name = split_str[0]
     property_range = split_str[1]
     #left is property
     if property_name not in test_host_model.keys():
-        return None
+        return "Filter property does not exist"
+    if ' ' in property_range:
+        return "Filter range is incorrectly inputted"
     #right is range
     switcher = {
             "ports": gen_port_lambda,
@@ -81,11 +83,12 @@ def parse_component(component_string):
             "OS" : gen_str_lambda #TODO: for some reason this works in the test but doesn't work live. (If it turns into a timesync, Erik has some ideas on why/how to fix)
             }
     r_lamb = switcher.get(property_name, gen_str_lambda) (property_name, property_range) #protected/known to exist because we previously check
-    return r_lamb 
+    return r_lamb
 
 def parse_querry(querry_str):
     #TODO: Deal with breaking into components
     return parse_component(querry_str)
+
 
 if __name__ == '__main__':
     #print(parse_component("num_ports=1") (test_host_model))
