@@ -83,3 +83,35 @@ img {
   display: flex;
   align-items: stretch;
 }
+
+.host-star .solid-star {
+  display: none;
+}
+
+.host-star .hollow-star {
+  display: block;
+}
+
+.host-star.marked-host .solid-star {
+  display: block;
+}
+
+.host-star.marked-host .hollow-star {
+  display: none;
+}
+
+.icon-border {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #b9daff;
+  border-radius: 7px;
+  box-shadow: 0 0 10px #aad6ff;
+}
+
+.icon-border.glowing {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #f1bb07;
+  border-radius: 7px;
+  box-shadow: 0 0 10px #e2e605;
+}

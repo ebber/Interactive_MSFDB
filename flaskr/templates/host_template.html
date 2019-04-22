@@ -2,9 +2,10 @@
 
 <div class="hostContainer" data-toggle="tooltip" data-html="true" data-placement="top"
   title="<div>ip: {{host.ip}} </div><div>ports: {{host.num_ports}}  opened</div>">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#a{{host.id}}exampleModalLong">
+  <div type="button" class="btn btn-primary icon-border {{ 'glowing' if host.is_marked }}" data-toggle="modal"
+    data-target="#a{{host.id}}exampleModalLong" id="border-{{host.id}}">
     <img class="hostPicture" src={{"/static/images/"+host.purpose+".svg"}}>
-  </button>
+  </div>
 </div>
 {% endblock %}
 
@@ -32,16 +33,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- {% if host.is_importmant %}
-        <span class="px-2"><img src={{"/static/images/star.svg"}} width="25px" height="25px"></span>
-        {% else %}
-        <span class="px-2"><img src={{"/static/images/star-hollow.svg"}} width="25px" height="25px"></span>
-        {% endif %} -->
-        {% if True %}
-        <span class="px-2"><img src={{"/static/images/star.svg"}} width="25px" height="25px"></span>
-        {% else %}
-        <span class="px-2"><img src={{"/static/images/star-hollow.svg"}} width="25px" height="25px"></span>
-        {% endif %}
+        <span id="star-{{host.id}}" class="pl-1 pr-3 host-star {{ 'marked-host' if host.is_marked }}">
+          <img src={{"/static/images/star.svg"}} width="25px" height="25px" class="solid-star">
+          <img src={{"/static/images/star-hollow.svg"}} width="25px" height="25px" class="hollow-star">
+        </span>
         <h5 class="modal-title" id="a{{host.id}}exampleModalLongTitle">Host: {{host.id}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -90,3 +85,32 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+
+    $('#star-{{host.id}}').on('click', function () {
+      $('#star-{{host.id}}').toggleClass('marked-host');
+        $('#border-{{host.id}}').toggleClass('glowing');
+    });
+
+  });
+</script>
+
+<script>
+  // toggle is_marked
+  $(function () {
+    $("#star-{{host.id}}").click(function () {
+      $.ajax({
+        type: "POST",
+        url: "/toggle_marked/{{ host.id }}",
+        success: function () {
+          console.log("success");
+        },
+        error: function () {
+          console.log("failure");
+        }
+      });
+    });
+  });
+</script>
