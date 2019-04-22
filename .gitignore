@@ -1,5 +1,7 @@
 # Erik's swap files
 *~
+
+savefile.pickle
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

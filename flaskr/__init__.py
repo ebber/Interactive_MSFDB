@@ -10,7 +10,7 @@ import pickle
 
 error = ""
 
-save_filepath = "savefile.db"
+save_filepath = "savefile.pickle"
 
 def create_app(test_config=None):
     # create and configure the app
