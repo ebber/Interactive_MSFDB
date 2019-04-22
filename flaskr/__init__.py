@@ -16,8 +16,9 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-	#set up vars from config here
-	SECRET_KEY = "Test" #Change to random seed for production, used by flask for signing cookies etc
+        # set up vars from config here
+        # Change to random seed for production, used by flask for signing cookies etc
+        SECRET_KEY="Test"
     )
 
     # Link the host database to the web app
@@ -26,7 +27,7 @@ def create_app(test_config=None):
 
     filter_rules = []
 
-    #hardcoded_filters = {
+    # hardcoded_filters = {
     #        "IP = 196.*.*.*" : lambda host : False  if "196" in host.ip else True,
     #        "ports = (80, 'OPEN')" : lambda host : False if len(host.ports) >0 and host.ports[0][0] == "80" else True,
     #       "ports = (1-1024. 'OPEN')" : lambda host : False if len(host.ports) ==0 else True
@@ -44,8 +45,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-
-
     @app.route('/UI')
     def render_app():
         host_list = host_database.get_hosts()
@@ -57,20 +56,20 @@ def create_app(test_config=None):
             host_list.sort(key=lambda host: host.purpose, reverse=True)
             # Authentication, Firewall, Database, Proxy, Router
 
-
         print(view_toggle)
 
-        #apply filter rules
+        # apply filter rules
         filtered_host_list = host_list
         for rule in filter_rules:
-            #try:
-            filtered_host_list = filter(lambda host: parse_querry(rule) (vars(host)) , filtered_host_list)
-            #except:
-               #print("AAAAAAAAAAAAAAAAAAAA")
+            # try:
+            filtered_host_list = filter(lambda host: parse_querry(
+                rule)(vars(host)), filtered_host_list)
+            # except:
+            # print("AAAAAAAAAAAAAAAAAAAA")
 
-        #print(len(host_list))
-        #print(len(filtered_host_list))
-        return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, error=error, view = view_toggle)
+        # print(len(host_list))
+        # print(len(filtered_host_list))
+        return render_template('view_screen.html', hosts=filtered_host_list, filter_list=filter_rules, error=error, view=view_toggle)
 
     @app.route('/save', methods=['GET'])
     def save():
@@ -82,9 +81,12 @@ def create_app(test_config=None):
         host_database = pickle.load(open(save_filepath,"rb"))
         return 'success'
 
-    @app.route('/toggle_marked/<host_id>', methods=['PUT'])
+    @app.route('/toggle_marked/<host_id>', methods=['POST'])
     def mark_important(host_id):
-        host_database[int(host_id)].is_marked = true
+        host_list = host_database.get_hosts()
+        for i, host in enumerate(host_list):
+            if int(host.id) == int(host_id):
+                host_list[i].is_marked = not host_list[i].is_marked
         return 'success'
 
     @app.route('/ribbon/ports', methods=['PORTS'])
@@ -104,13 +106,13 @@ def create_app(test_config=None):
         print(filter_rule)
         global error
         if not isinstance(filter_rule, str):
-            #TODO: Deal with None
+            # TODO: Deal with None
             filter_rules.append(filter_text)
             error = ""
             return 'success addeding rule: ' + filter_text
         else:
             error = filter_rule
-            return 'failiure to add rule: ' +filter_text
+            return 'failiure to add rule: ' + filter_text
 
     @app.route('/filter/remove/<filter_idx>', methods=['DELETE'])
     def remove_filter_rule(filter_idx):
@@ -123,7 +125,7 @@ def create_app(test_config=None):
     @app.route('/comment', methods=['POST'])
     def add_comment():
         request_data = request.get_json()
-        #return request_data['host_id'] + " : " + request_data['comment']
+        # return request_data['host_id'] + " : " + request_data['comment']
         return "success"
 
     return app
