@@ -9,51 +9,35 @@
     <div class="collapse navbar-collapse mr-5">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-4 top-navbar">
-                <a class="nav-link" href="#"><font color="white">About</font></a>
+                <a class="nav-link" href="#">About</a>
             </li>
-            <li class="nav-item mx-4 top-navbar">
-                <a class="nav-link" href="#"><font color="white">File</font></a>
-            </li>
+
             <li class="nav-item mx-4 dropdown top-navbar">
                 <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <font color="white">View</font>
+                    File
                 </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type=href="#" onClick="refreshPagePorts()" id="ports-btn">Ports</button>
-                    <script>
-                    $("#ports-btn").click(function () {
-                        $.ajax({
-                                type: "PORTS",
-                                url: "/ribbon/ports",
-                                success: function () {
-                                    console.log("success");
-                                    location.reload();
-                                },
-                                error: function () {
-                                    console.log("failure");
-                                }
-                            });
-                    })
-                    </script>
-                    <button class="dropdown-item" href="#" onClick="refreshPagePurpose()" id="purpose-btn">Purpose</button>
-                    <script>
-                      $("#purpose-btn").click(function () {
-                          $.ajax({
-                                  type: "PURPOSE",
-                                  url: "ribbon/purpose",
-                                  success: function () {
-                                      console.log("success");
-                                      location.reload();
-                                  },
-                                  error: function () {
-                                      console.log("failure");
-                                  }
-                              });
-                      })
-                    </script>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Save File</a>
+                    <a class="dropdown-item" href="#">Load File</a>
                 </div>
             </li>
+
+            <li class="nav-item mx-4 dropdown top-navbar">
+                <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    View
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" onClick="refreshPagePorts()" id="ports-btn">
+                        Ports
+                    </a>
+                    <a class="dropdown-item" href="#" onClick="refreshPagePurpose()" id="purpose-btn">
+                        Purpose
+                    </a>
+                </div>
+            </li>
+            
             <li>
                 <div class="navbar-brand" class="btn" data-toggle="modal" data-target=".info-modal">
                     <img src="{{ url_for('static', filename='images/info.svg') }}" width="30" height="30"
@@ -84,3 +68,35 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    $("#ports-btn").click(function () {
+        $.ajax({
+            type: "PORTS",
+            url: "/ribbon/ports",
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
+
+<script>
+    $("#purpose-btn").click(function () {
+        $.ajax({
+            type: "PURPOSE",
+            url: "ribbon/purpose",
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
