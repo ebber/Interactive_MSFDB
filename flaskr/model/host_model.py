@@ -13,7 +13,7 @@ class host:
     def __init__(self,ident = -1, ip = False, OS = False, ports = False ,services = False, purpose = False, comments=""):
 
         if ip:
-            self.initialize(ip, ident, OS, ports, purpose, comments)
+            self.initialize(ident,ip, OS, ports, purpose, comments)
         else:
             self.init_test()
 

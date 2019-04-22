@@ -44,8 +44,16 @@ class DB_Model:
         return True
 
     def test_update_hosts(self, num=1):
+        port_l = [ 
+         (20, "telnet", "telnet info", "OPEN"),
+         (22, "SSH", "SSH info", "OPEN"),
+         (53, "DNS", "DNS info", "OPEN"),
+         (80, "HTTP", "HTTP info", "OPEN"),
+         (3306, "SQL", "mySQL v2.1.0", "OPEN")]
+        test_host = host(ident=1, ip="194.168.0.1", OS="Linux", ports=port_l, purpose = "DB", comments="This is a test host")
         for i in range(0,num):
             self.hosts.append(host())
+        self.hosts.append(test_host)
 
     def get_host_port_info(self, host_id):
         q_string = "SELECT port, name, info, state FROM public.services WHERE services.host_id = " + str(host_id)
