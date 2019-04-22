@@ -24,6 +24,7 @@ def create_app(test_config=None):
     # Link the host database to the web app
     host_database = DB_Model()
     host_database.test_update_hosts(25)
+    host_list = host_database.get_hosts()
 
     filter_rules = []
 
@@ -79,6 +80,8 @@ def create_app(test_config=None):
     @app.route('/load', methods=['GET'])
     def load():
         host_database = pickle.load(open(save_filepath,"rb"))
+        host_list = host_database.get_hosts()
+        print(host_list[0])
         return 'success'
 
     @app.route('/toggle_marked/<host_id>', methods=['POST'])
