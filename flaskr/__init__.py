@@ -10,6 +10,8 @@ import pickle
 
 error = ""
 
+save_filepath = "savefile.db"
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -20,7 +22,7 @@ def create_app(test_config=None):
 
     # Link the host database to the web app
     host_database = DB_Model()
-    host_database.test_update_hosts(20)
+    host_database.test_update_hosts(25)
 
     filter_rules = []
 
@@ -69,6 +71,16 @@ def create_app(test_config=None):
         #print(len(host_list))
         #print(len(filtered_host_list))
         return render_template('view_screen.html', hosts=filtered_host_list, filter_list = filter_rules, error=error, view = view_toggle)
+
+    @app.route('/save', methods=['GET'])
+    def save():
+        pickle.dump(host_database, open(save_filepath, "wb"))
+        return 'success'
+
+    @app.route('/load', methods=['GET'])
+    def load():
+        host_database = pickle.load(open(save_filepath,"rb"))
+        return 'success'
 
     @app.route('/toggle_marked/<host_id>', methods=['PUT'])
     def mark_important(host_id):
