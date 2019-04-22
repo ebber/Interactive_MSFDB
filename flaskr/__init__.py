@@ -6,6 +6,8 @@ from model.host_database import DB_Model
 
 from filter import parse_querry
 
+import pickle
+
 error = ""
 
 def create_app(test_config=None):
