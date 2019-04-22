@@ -22,21 +22,33 @@
 </nav>
 
 <script>
+
     // toggle the sidebar
     $(document).ready(function () {
 
         $('#siderbar-toggler').on('click', function () {
             $('#sidebar').toggleClass('deactive');
-        });z
+        });
 
     });
 </script>
 
 <script>
-    // add new rule
+    // Press enter in text box to add new rule
+    document.getElementById('rule-form').onkeydown = function(event) {
+        if (event.keyCode == 13) {
+            addRule();
+        }
+    };
+    // Click on add button to add new rule
     $(function () {
         $("#rule-submit-btn").click(function () {
-            $.ajax({
+            addRule();
+        });
+    });
+
+    function addRule(){
+        $.ajax({
                 type: "POST",
                 url: "/filter/add",
                 data: $('#rule-form').serialize(),
@@ -47,9 +59,9 @@
                 error: function () {
                     console.log("failure");
                 }
-            });
         });
-    });
+    }
+
 </script>
 
 <script>
