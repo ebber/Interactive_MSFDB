@@ -31,9 +31,10 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#" id="ports-btn">Ports</a>
                     <a class="dropdown-item" href="#" id="purpose-btn">Purpose</a>
+                    <a class="dropdown-item" href="#" id="importance-btn">Importance</a>
                 </div>
             </li>
-            
+
             <li>
                 <div class="navbar-brand" class="btn" data-toggle="modal" data-target=".info-modal">
                     <img src="{{ url_for('static', filename='images/info.svg') }}" width="30" height="30"
@@ -86,6 +87,22 @@
         $.ajax({
             type: "PURPOSE",
             url: "/ribbon/purpose",
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
+
+<script>
+    $("#importance-btn").click(function () {
+        $.ajax({
+            type: "IMPORTANCE",
+            url: "/ribbon/importance",
             success: function () {
                 console.log("success");
                 location.reload();

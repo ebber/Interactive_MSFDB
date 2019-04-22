@@ -53,9 +53,11 @@ def create_app(test_config=None):
 
         if view_toggle == 'ports':
             host_list.sort(key=lambda host: host.num_ports, reverse=True)
-        else:
+        elif view_toggle == 'purpose':
             host_list.sort(key=lambda host: host.purpose, reverse=True)
             # Authentication, Firewall, Database, Proxy, Router
+        elif view_toggle == 'importance':
+            host_list.sort(key=lambda host: host.is_marked, reverse=True)
 
         print(view_toggle)
 
@@ -101,6 +103,11 @@ def create_app(test_config=None):
     def purpose_view_rule():
         host_database.set_view("purpose")
         return 'success switching to purpose view'
+
+    @app.route('/ribbon/importance', methods=['IMPORTANCE'])
+    def importance_view_rule():
+        host_database.set_view("importance")
+        return 'success switching to importance view'
 
     @app.route('/filter/add', methods=['POST'])
     def add_filter_rule():
