@@ -18,8 +18,8 @@
                     File
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Save File</a>
-                    <a class="dropdown-item" href="#">Load File</a>
+                    <a class="dropdown-item" href="#" id="save-btn">Save File</a>
+                    <a class="dropdown-item" href="#" id="load-btn">Load File</a>
                 </div>
             </li>
 
@@ -29,12 +29,8 @@
                     View
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" onClick="refreshPagePorts()" id="ports-btn">
-                        Ports
-                    </a>
-                    <a class="dropdown-item" href="#" onClick="refreshPagePurpose()" id="purpose-btn">
-                        Purpose
-                    </a>
+                    <a class="dropdown-item" href="#" id="ports-btn">Ports</a>
+                    <a class="dropdown-item" href="#" id="purpose-btn">Purpose</a>
                 </div>
             </li>
             
@@ -89,7 +85,39 @@
     $("#purpose-btn").click(function () {
         $.ajax({
             type: "PURPOSE",
-            url: "ribbon/purpose",
+            url: "/ribbon/purpose",
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
+
+<script>
+    $("#save-btn").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/save",
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
+
+<script>
+    $("#load-btn").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/load",
             success: function () {
                 console.log("success");
                 location.reload();
