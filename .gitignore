@@ -1,5 +1,7 @@
 # Erik's swap files
 *~
+*.tmp
+*.swp
 
 savefile.pickle
 # Byte-compiled / optimized / DLL files
