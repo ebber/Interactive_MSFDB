@@ -30,6 +30,13 @@ class DB_Model:
     def set_view(self, value):
         self.view_toggle = value
 
+    def does_host_exist(self, ident):
+        hosts = self.get_hosts()
+        for host in hosts:
+            if host.ident == ident:
+                return True
+        return False
+
     #update from the DB
     def update_hosts(self):
         if not self.connected:
@@ -38,9 +45,12 @@ class DB_Model:
         q_string = "SELECT id, address, os_family, service_count, purpose, comments FROM public.hosts"
         self.cursor.execute(q_string)
         rows = self.cursor.fetchall()
+
+        
         for row in rows:
             host_ports = self.get_host_port_info(row[0]) #id
-            self.hosts.append(host(ident=row[0],ip=row[1], OS=row[2], ports=host_ports, purpose=row[4], comments=row[5]))
+            if not self.does_host_exist(row[0]):
+                self.hosts.append(host(ident=row[0],ip=row[1], OS=row[2], ports=host_ports, purpose=row[4], comments=row[5]))
         return True
 
     def test_update_hosts(self, num=1):
@@ -62,6 +72,25 @@ class DB_Model:
         if port_list is None:
             port_list = []
         return port_list
+
+
+    #Scanning stuff
+    def scan_host(self, host_ip):
+        print("scanning: " +host_ip)
+
+
+    def scan(self):
+        hosts = self.get_hosts()
+        for host in hosts:
+            self.scan_host(host.ip)
+
+    def discover_network(self):
+        print("discovering network")
+
+
+    def run_scan(self, scan_text):
+        print("running: " + scan_text)
+
 
 
 

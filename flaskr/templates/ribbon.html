@@ -23,6 +23,17 @@
             <li class="nav-item mx-4 dropdown top-navbar">
                 <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
+                    Scan 
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" id="scan-btn">Discover network</a>
+		    <textarea class="dropdown-item" id="scan-text-area"> Type Scan Here </textarea>
+                    <a class="dropdown-item" href="#" id="text-scan-btn">Run scan</a>
+                </div>
+            </li>
+            <li class="nav-item mx-4 dropdown top-navbar">
+                <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     View
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -67,6 +78,39 @@
     </div>
 </nav>
 
+<script>
+    $("#text-scan-btn").click(function () {
+      var scantext = document.getElementById("scan-text-area").value
+      console.log(scantext)
+        $.ajax({
+            type: "POST",
+	    data: scantext,
+            url: "/scan/"+scantext,
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
+<script>
+    $("#scan-btn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/discover_network",
+            success: function () {
+                console.log("success");
+                location.reload();
+            },
+            error: function () {
+                console.log("failure");
+            }
+        });
+    })
+</script>
 <script>
     $("#ports-btn").click(function () {
         $.ajax({

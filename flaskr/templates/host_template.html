@@ -14,6 +14,7 @@
     $('[data-toggle="tooltip"]').tooltip()
   });
 
+
   function postComment() {
     var xhr = new XMLHttpRequest();
     var url = "/comment";
@@ -79,6 +80,7 @@
         </form>
       </div>
       <div class="modal-footer">
+	<button type="button" id="scan-btn-{{host.id}}" class="btn btn-primary">Deep Scan Host</button>
         <button type="button" onclick="postComment()" class="btn btn-primary" data-dismiss="modal"
           data-target="#a{{host.id}}exampleModalLong">Save changes</button>
       </div>
@@ -104,6 +106,23 @@
       $.ajax({
         type: "POST",
         url: "/toggle_marked/{{ host.id }}",
+        success: function () {
+          console.log("success");
+        },
+        error: function () {
+          console.log("failure");
+        }
+      });
+    });
+  });
+</script>
+<script>
+  // deep scan host
+  $(function () {
+    $("#scan-btn-{{host.id}}").click(function () {
+      $.ajax({
+        type: "POST",
+        url: "/scan_host/{{ host.ip }}",
         success: function () {
           console.log("success");
         },
