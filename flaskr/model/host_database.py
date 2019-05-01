@@ -1,11 +1,10 @@
-from model.host_model import host
-
+import os
+import subprocess
 import model.db_config
 from psycopg2 import connect
+from model.host_model import host
 
 class DB_Model:
-
-
     def __init__(self):
         #connect to real db here
         try:
@@ -76,21 +75,37 @@ class DB_Model:
 
     #Scanning stuff
     def scan_host(self, host_ip):
+        scan_str = "nmap -A "+host_ip
         print("scanning: " +host_ip)
+        self.run_scan(scan_str)
+        return True
+
 
 
     def scan(self):
         hosts = self.get_hosts()
         for host in hosts:
             self.scan_host(host.ip)
+        return True
 
     def discover_network(self):
         print("discovering network")
+        res=subprocess.check_output(["arp-scan", "-l"]).split("\n")[2:-4]
+        ips = map (lambda x: x.split('\t')[0].strip(), res)
+        scan_str = "nmap " + " ".join(ips)
+        return self.run_scan(scan_str)
+
+
 
 
     def run_scan(self, scan_text):
-        print("running: " + scan_text)
-
+        print(scan_text.split("nmap "))
+        opts = scan_text.split("nmap ")[-1]
+        new_scan = "nmap -oX nmap_scan.tmp " + opts
+        os.system(new_scan)
+        os.system('msfconsole -q -x "db_import nmap_scan.tmp; quit;"')
+        self.update_hosts()
+        return True
 
 
 
