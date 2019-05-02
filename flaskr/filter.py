@@ -21,8 +21,35 @@ def gen_port_lambda(property_name, property_range):
 
 def gen_ip_lambda(property_name, property_range):
     print("ip lambda")
+
+    def ipToBin(ip_str):
+        octets = map(int, ip_str.split('/')[0].split('.')) # '1.2.3.4'=>[1, 2, 3, 4]
+        binary = '{0:08b}{1:08b}{2:08b}{3:08b}'.format(*octets)
+        return binary
+
+        
+
     #TODO: Detect and filter on CIDR Notation or regex 
-    return (lambda x: True)
+    CIDR_split = property_range.split("/")
+    target_ip = CIDR_split[0]
+    if len(CIDR_split) is 1:
+        octs = target_ip.split(".")
+        rang =32 
+        for i in range(0,len(octs)):
+            if octs[i] is "*":
+                rang-=8
+                octs[i] = "1"
+        new_target_ip = ".".join(octs)
+        return lambda host: True if (ipToBin(new_target_ip)[:rang]) == (ipToBin(host[property_name]) [:rang]) else False
+
+    elif len(CIDR_split) is 2:
+        rang = int(CIDR_split[1])
+        return lambda host: True if (ipToBin(target_ip)[:rang]) == (ipToBin(host[property_name]) [:rang]) else False
+        
+    else:
+        print(CIDR_split)
+        return None
+    return None # should never get to this point 
 
 def gen_num_lambda(property_name, property_range):
     print("generating number lambda")
@@ -65,7 +92,10 @@ def parse_querry(querry_str):
 
 if __name__ == '__main__':
     #print(parse_component("num_ports=1") (test_host_model))
-    print(parse_querry("OS=Windows") (test_host_model))
-    print(parse_querry("ports=80") (test_host_model))
-    print(parse_querry("ports=ssh") (test_host_model))
+    print (test_host_model)
+    #print(parse_querry("OS=Windows") (test_host_model))
+    #print(parse_querry("ports=80") (test_host_model))
+    #print(parse_querry("ports=ssh") (test_host_model))
+    print(parse_component("ip=192.0.0.1/0") (test_host_model))
+    print(parse_component("ip=*.*.*.*") (test_host_model))
     #print(parse_component("num_ports=3") (test_host_model))
